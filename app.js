@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 });
 
 // 3) ROUTES
-app.use('/', pageRouter);
+app.use('/', pageRouter); 
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
