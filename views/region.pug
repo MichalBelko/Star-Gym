@@ -1,0 +1,270 @@
+extends regionBase
+include _exerciseCard
+
+block content
+  header.header
+    .navigation-wrap.start-header.start-style.animate__bounceInDown.animate__animated
+      .container
+        .row
+          .col-12
+            nav.navbar.navbar-expand-md
+              a.navbar-brand(href='/')
+                img(src='/img/logo2.png' alt='logo')
+              .menu-wrapper.navbar-toggler.p-0(data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+                .hamburger-menu
+              #navbarSupportedContent.collapse.navbar-collapse.links
+                ul.navbar-nav.ml-auto.py-4.py-md-0
+                  li.nav-item.pl-md-0.ml-0.ml-md-4
+                    a.nav-link(href='/') Domov
+                  li.nav-item.pl-md-0.ml-0.ml-md-4
+                    a.nav-link.dropdown-toggle(data-toggle='dropdown' href='#' role='button' aria-haspopup='true' aria-expanded='false') O nás
+                    .dropdown-menu.border-0.bg-transparent
+                      a.dropdown-item.overlayLeftBtn.pl-3(href='/galeria')
+                        span Galéria
+                      a.dropdown-item.overlayLeftBtn.pl-3(href='/pravidla')
+                        span Pravidlá
+                  li.nav-item.pl-md-0.ml-0.ml-md-4
+                    a.nav-link.dropdown-toggle(data-toggle='dropdown' href='#' role='button' aria-haspopup='true' aria-expanded='false') Služby
+                    .dropdown-menu.border-0.bg-transparent
+                      a.dropdown-item.overlayLeftBtn.pl-3(href='/clenstva')
+                        span Členstvá
+                      a.dropdown-item.overlayLeftBtn.mt-2.mb-2.pl-3(href='/skupinove-cvicenia')
+                        span
+                          | Skupinové
+                          br
+                          | cvičenia
+                      a.dropdown-item.overlayLeftBtn.pl-3(href='/relax')
+                        span Relax
+                      a.dropdown-item.overlayLeftBtn.pl-3(href='/sportove-priestory')
+                        span
+                          | Športové
+                          br
+                          | priestory
+                  li.nav-item.pl-md-0.ml-0.ml-md-4
+                    a.nav-link(href='/treneri') Tréneri
+                  li.nav-item.pl-md-0.ml-0.ml-md-4
+                    a.nav-link.dropdown-toggle(data-toggle='dropdown' href='#' role='button' aria-haspopup='true' aria-expanded='false') Naše fitká
+                    .dropdown-menu.border-0.bg-transparent
+                      a.dropdown-item.overlayLeftBtn(href='/regiony')
+                        span Regióny
+                      a.dropdown-item.overlayLeftBtn(href='/benefity')
+                        span Benefity
+                  li.nav-item.pl-md-0.ml-0.ml-md-4
+                    a.nav-link(href='/kontakt') Kontakt
+                  .nav-item.languages
+                    img.sk_flag(src='/img/slovakia.png' alt='sk_flag')
+                    if region.slug === 'australia'
+                      a(href='https://stargym-en.herokuapp.com/regions/oceania')
+                        img.uk_flag(src='/img/uk.png' alt='uk_flag')
+                    else if region.slug === 'azia'
+                      a(href='https://stargym-en.herokuapp.com/regions/asia')
+                        img.uk_flag(src='/img/uk.png' alt='uk_flag')
+                    else if region.slug === 'severna-amerika'
+                      a(href='https://stargym-en.herokuapp.com/regions/north-america')
+                        img.uk_flag(src='/img/uk.png' alt='uk_flag')
+                    else if region.slug === 'juzna-amerika'
+                      a(href='https://stargym-en.herokuapp.com/regions/south-america')
+                        img.uk_flag(src='/img/uk.png' alt='uk_flag')
+                    else if region.slug === 'afrika'
+                      a(href='https://stargym-en.herokuapp.com/regions/africa')
+                        img.uk_flag(src='/img/uk.png' alt='uk_flag')
+                    else 
+                      a(href='https://stargym-en.herokuapp.com/regions/europe')
+                        img.uk_flag(src='/img/uk.png' alt='uk_flag')
+
+  main
+    section.section-header
+      .header__hero
+        .header__hero-overlay  
+        img.header__hero-img(src=`/img/region/${region.imageCover}`)
+      .heading-box
+        h2.heading-primary.animate__fadeInDown.animate__animated
+          if region.slug === 'australia'
+            span(class='australia__span')=`Star Gym ${region.name}`
+          else if region.slug === 'europa'
+            span(class='eu__span')=`Star Gym ${region.name}`
+          else if region.slug === 'afrika'
+            span(class='africa__span')=`Star Gym ${region.name}`
+          else if region.slug === 'juzna-amerika'
+            span(class='south__span')=`Star Gym ${region.name}`
+          else if region.slug === 'severna-amerika'
+            span(class='north__span')=`Star Gym ${region.name}`
+          else 
+            span(class='asia__span')=`Star Gym ${region.name}`
+        .heading-box__group
+          .heading-box__detail
+            svg.heading-box__icon
+              use(xlink:href='/img/icons.svg#icon-flag')
+            span=`${region.futureCentre} budúce centrá` 
+          .heading-box__detail
+            svg.heading-box__icon
+              use(xlink:href='/img/icons.svg#icon-map-pin')
+            span= region.centerQuatity
+
+    section.section-description
+      .overview-box
+        h3.heading-secondary
+          p Pridaj sa k nám 
+          p už dnes
+        p.description__text= region.description
+      .description-box
+        h3.heading-secondary=`${region.regionName} strediská`
+        ul
+          each city in region.cityList
+            li.overview-box__detail= city
+
+    section.section-pictures
+      each img, i in region.imgList
+        .picture-box
+          img.picture-box__img(src=`/img/region/${img}`, class=`picture-box__img--${i + 1}`)
+    section.section-map
+      #map(data-locations=`${JSON.stringify(region.locations)}`)
+
+    if region.slug === 'australia'
+      section.section-exercises(class='australia__span')
+        .exercises
+          each exercise in region.exercises
+            +exerciseCard(exercise)
+    else if region.slug === 'europa'
+      section.section-exercises(class='eu__span')
+        .exercises
+          each exercise in region.exercises
+            +exerciseCard(exercise)
+    else if region.slug === 'afrika'
+      section.section-exercises(class='africa__span')
+        .exercises
+          each exercise in region.exercises
+            +exerciseCard(exercise)
+    else if region.slug === 'juzna-amerika'
+      section.section-exercises(class='south__span')
+        .exercises
+          each exercise in region.exercises
+            +exerciseCard(exercise)
+    else if region.slug === 'severna-amerika'
+      section.section-exercises(class='north__span')
+        .exercises
+          each exercise in region.exercises
+            +exerciseCard(exercise)
+    else 
+      section.section-exercises(class='asia__span')
+        .exercises
+          each exercise in region.exercises
+            +exerciseCard(exercise)
+
+  footer.footer.region__footer
+    .container.pt-3
+      .row.pic.d-flex
+        .col.d-flex.justify-content-center
+          a.footer-logo-link.footer-inline-block(href='/')
+            img(src='/img/logo2.png' alt='logo')
+      .row.d-flex.justify-content-center.text-center
+        .col-12.col-sm-5.col-md-2.d-sm-block.justify-content-center.mb-5.mb-sm-4
+          h5.footer-h PRODUKTY
+          ul.footer-list.w-list-unstyled.text-center(role='list')
+            li.list-item
+              a.footer-link(href='#') Mapy
+            li
+              a.footer-link(href='#') Navigácia
+            li
+              a.footer-link(href='#') Hľadať
+            li
+              a.footer-link(href='#') O nás
+            li
+              a.footer-link(href='#') Vision SDK
+            li
+              a.footer-link(href='#') Home
+            li
+              a.footer-link(href='#') Cenník
+        .col-12.col-sm-5.col-md-2.d-sm-block.justify-content-center.mb-5.mb-sm-4
+          h5.footer-h PLATFORMY
+          ul.footer-list.w-list-unstyled(role='list')
+            li
+              a.footer-link(href='#') Web
+            li
+              a.footer-link(href='#') Mobil
+            li
+              a.footer-link(href='#') VR
+            li
+              a.footer-link(href='#') Tablet
+        .col-12.col-sm-5.col-md-2.d-sm-block.justify-content-center.mb-5.mb-sm-4
+          h5.footer-h PODPORA
+          ul.footer-list.w-list-unstyled.pb-3(role='list')
+            li
+              a.footer-link(href='#') Dokumentácia
+              a.footer-link(href='#') Platená podpora
+            li
+              a.footer-link(href='#') Poradenie
+              a.footer-link(href='#') Pomoc
+        .col-12.col-sm-5.col-md-2.d-sm-block.justify-content-center.mb-5.mb-sm-4
+          h5.footer-h Spoločnosť
+          ul.footer-list.w-list-unstyled(role='list')
+            li
+              a.footer-link(href='#') O nás
+            li
+              a.footer-link(href='#') Zákazníci
+            li
+              a.footer-link(href='#') Sponzori
+            li
+              a.footer-link(href='#') Reklama
+            li
+              a.footer-link(href='#') Komunita
+            li
+              a.footer-link(href='#') Kontakt
+        .col-12.col-sm-5.col-md-2.d-sm-block.justify-content-center.mb-5.mb-sm-4
+          h5.footer-h Ostatné
+          ul.footer-list.w-list-unstyled(role='list')
+            li
+              a.footer-link(href='#') Relax
+            li
+              a.footer-link(href='#') Wellness
+            li
+              a.footer-link(href='#') Logistika
+            li
+              a.footer-link(href='#') Športové strediská
+            li
+              a.footer-link(href='#') Boxerské ringy
+            li
+              a.footer-link(href='#') Reštaurácie
+            li
+              a.footer-link(href='#') Sauny
+            li
+              a.footer-link(href='#') Udalosti
+            li
+              a.footer-link(href='#') Blog
+      .row.justify-content-center.text-center.align-items-center
+        .col-12.mb-3.col-lg-4
+          a.footer-link.bottom-link(style='font-weight:normal;font-size:large' href='#')
+            | Zmluvné
+            | podmienky
+          br
+          a.footer-link.bottom-link(style='font-weight:normal;font-size:large' href='#')
+            | Súkromie
+          a.footer-link.bottom-link(style='font-weight:normal;font-size:large' href='#')
+            | Bezpečnosť
+          br
+        .col-12.mb-3.col-lg-4.names
+          div(style='font-weight:normal;font-size:large')
+            | Vytvoril 
+            a(href='https://www.instagram.com/mato_157/')
+              b
+                | Martin
+                | Lauff
+            |                         & 
+            a(href='https://www.instagram.com/_michal.belko_/')
+              b Michal Belko
+          br
+          .mt-3.bottom-link © Star gym
+          br
+        .col-12.col-lg-4
+          a.social.footer-inline-block.mr-3
+            div(style=' width: 100% ')
+              i.fab.fa-facebook-square.fa-3x
+          a.social.footer-inline-block.mr-3
+            div(style=' width: 100% ')
+              i.fab.fa-github-square.fa-3x
+          a.social.footer-inline-block.mr-3
+            div(style=' width: 100% ')
+              i.fab.fa-linkedin.fa-3x
+          a.social.footer-inline-block
+            div(style=' width: 100% ')
+              i.fab.fa-instagram.fa-3x

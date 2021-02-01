@@ -1,0 +1,7 @@
+mixin exerciseCard(exercise)
+  .exercises__card
+    a.exercise__link(href=`/skupinove-cvicenia/${exercise.slug}`)
+      .exercises__image(style=`background: linear-gradient(rgba(0, 0, 0, 0.555), rgba(0, 0, 0, 0.555)), url(/img/skupArea/${exercise.imageCover}); background-position: center; background-size: cover;`)
+        button.animate__fadeInDown.animate__animated Zobraziť viac
+      .exercise__name
+        span= exercise.name

@@ -1,0 +1,55 @@
+extends kontaktBase
+
+block content
+  main
+    h2 Kontakt
+    .container-fluid
+      .row
+        .col-0.col-xl-1
+        .col-12.col-xl-5
+          h3 Kontaktné informácie
+        .col-0.col-xl-6
+          h3 Formulár
+      .row.kontakt
+        .col-0.col-xl-1
+        .col-12.col-xl-5.align-items-center.d-flex.justify-content-center.mb-5.mb-xl-0.mx-xl-0
+          ul.mx-auto
+            li
+              b
+                i StarGym – fitness centrum since 2002
+            li
+              b Adresa
+                | : Čordákova 28, 040 01 Košice
+            li
+              b E-mail
+                | : stargym@gmail.sk
+            li
+              b Instagram
+                |  : Star__Gym
+            li
+              b Facebook
+                |  : Star-Gym
+            li
+              b Twitter
+                |  : StarGymSK
+            li
+              b Tel.č.
+                |  : 0948 411 746
+        .col-12.col-xl-6.d-flex.justify-content-center
+          form.login-form.rounded(action='#')
+            h1 Kontaktujte nás
+            .textb
+              input(type='text' required='')
+              .placeholder Meno
+            .textb
+              input(type='text' required='')
+              .placeholder Priezvisko
+            .textb
+              input(type='text' required='')
+              .placeholder Email
+            .textb.mb-5
+              input(type='password' required='')
+              .placeholder Telefón
+            label(for='text') Odkaz:
+            textarea#text(name='text' rows='8')
+            button.btn.fas.fa-arrow-right.fa-3x  Odoslať
