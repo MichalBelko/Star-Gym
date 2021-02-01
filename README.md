@@ -1,5 +1,5 @@
 # Star-Gym
-## New gorgeous gym website
+## Nová stránka pre fitness centrum Star Gym
 
 http://stargym-en.herokuapp.com/ - ENGLISH VERSION 
 
